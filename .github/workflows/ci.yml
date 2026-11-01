@@ -1,0 +1,45 @@
+name: Repository quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repository-checks:
+    name: Documentation and repository checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check required files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s README.md
+          test -s docs/DELIVERY-STATUS.md
+          test -s docs/security/threat-model.md
+          test -s docs/architecture/enterprise-idp-architecture.svg
+          test -s docs/architecture/developer-golden-path.svg
+          bash scripts/validate-repo.sh
+      - name: Validate SVG XML
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+          for file in [
+              Path("docs/architecture/enterprise-idp-architecture.svg"),
+              Path("docs/architecture/developer-golden-path.svg"),
+          ]:
+              ET.parse(file)
+              print(f"Valid SVG XML: {file}")
+          PY
