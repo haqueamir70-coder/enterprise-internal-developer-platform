@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   repository-checks:
-    name: Documentation and repository checks
+    name: Documentation and manifest checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,10 +36,26 @@ jobs:
           python - <<'PY'
           import xml.etree.ElementTree as ET
           from pathlib import Path
-          for file in [
-              Path("docs/architecture/enterprise-idp-architecture.svg"),
-              Path("docs/architecture/developer-golden-path.svg"),
-          ]:
+          for file in Path("docs/architecture").glob("*.svg"):
               ET.parse(file)
               print(f"Valid SVG XML: {file}")
           PY
+      - name: Validate Kubernetes YAML syntax
+        run: |
+          python -m pip install --quiet pyyaml
+          python - <<'PY'
+          import yaml
+          from pathlib import Path
+          for file in Path("platform").rglob("*.yaml"):
+              list(yaml.safe_load_all(file.read_text()))
+              print(f"Valid YAML: {file}")
+          PY
+
+  sample-container:
+    name: Build and smoke-test sample container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build and smoke-test
+        run: bash scripts/test-sample-service.sh
