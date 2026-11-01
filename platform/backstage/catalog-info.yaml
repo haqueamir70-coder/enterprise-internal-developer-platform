@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: idp-sample-service
+  description: Reference workload generated through the Enterprise IDP golden path.
+  tags: [python, kubernetes, aws, devsecops]
+  annotations:
+    github.com/project-slug: haqueamir70-coder/enterprise-internal-developer-platform
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default/platform-team
+  system: enterprise-internal-developer-platform
