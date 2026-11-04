@@ -78,3 +78,7 @@ Define platform availability, template generation success, deployment lead time 
 ### 10. Answer
 
 The repository explicitly marks AWS Terraform foundation and other milestones as planned. Discuss them as target architecture, not completed platform functionality.
+
+## Complete zero-to-hero guide
+
+See [ZERO-TO-HERO.md](./ZERO-TO-HERO.md) for the business scenario, architecture walkthrough, tool-by-tool explanations, implementation sequence, practical commands, troubleshooting playbook and additional scenario-based interview questions with answers.
