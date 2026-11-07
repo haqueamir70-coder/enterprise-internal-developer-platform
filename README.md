@@ -1,5 +1,17 @@
 <div align="center">
 
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:102A43,50:2563EB,100:9BF0E1&height=190&section=header&text=Enterprise+Internal+Developer+Platform&fontSize=32&fontColor=ffffff&animation=fadeIn" alt="Enterprise Internal Developer Platform project banner" width="100%" />
+
+<img src="https://readme-typing-svg.demolab.com/?font=Inter&weight=600&size=16&pause=1600&color=38BDF8&center=true&vCenter=true&width=900&height=36&lines=Enterprise+Internal+Developer+Platform+%E2%80%A2+Architecture+%E2%80%A2+Automation+%E2%80%A2+Security" alt="Animated project focus line" />
+
+![Platform](https://img.shields.io/badge/Engineering-2563EB?style=for-the-badge) ![Kubernetes](https://img.shields.io/badge/Cloud+Native-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white) ![GitOps](https://img.shields.io/badge/Argo+CD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white)
+
+</div>
+
+---
+
+<div align="center">
+
 # 🚀 Enterprise Internal Developer Platform
 ### A Production-Oriented Platform Engineering Reference Implementation
 
