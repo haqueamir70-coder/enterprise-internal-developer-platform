@@ -1,102 +1,84 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:102A43,50:2563EB,100:9BF0E1&height=190&section=header&text=Enterprise+Internal+Developer+Platform&fontSize=32&fontColor=ffffff&animation=fadeIn" alt="Enterprise Internal Developer Platform project banner" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:102A43,45:1D4ED8,100:9BF0E1&height=230&section=header&text=Enterprise%20Developer%20Platform&fontSize=35&fontColor=ffffff&animation=fadeIn" width="100%" alt="Enterprise Internal Developer Platform"/>
 
-<img src="https://readme-typing-svg.demolab.com/?font=Inter&weight=600&size=16&pause=1600&color=38BDF8&center=true&vCenter=true&width=900&height=36&lines=Enterprise+Internal+Developer+Platform+%E2%80%A2+Architecture+%E2%80%A2+Automation+%E2%80%A2+Security" alt="Animated project focus line" />
+### Golden paths · Self-service · GitOps · Guardrails · SRE
 
-![Platform](https://img.shields.io/badge/Engineering-2563EB?style=for-the-badge) ![Kubernetes](https://img.shields.io/badge/Cloud+Native-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white) ![GitOps](https://img.shields.io/badge/Argo+CD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white)
+[![AWS](https://img.shields.io/badge/Cloud-AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
+[![EKS](https://img.shields.io/badge/Runtime-EKS-FF9900?style=for-the-badge&logo=amazoneks&logoColor=white)](https://aws.amazon.com/eks/)
+[![Terraform](https://img.shields.io/badge/IaC-Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform)
+[![Backstage](https://img.shields.io/badge/Portal-Backstage-9BF0E1?style=for-the-badge&logo=backstage&logoColor=black)](https://backstage.io/)
+[![Argo CD](https://img.shields.io/badge/GitOps-Argo_CD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white)](https://argo-cd.readthedocs.io/)
 
-</div>
+**An AWS-oriented Platform Engineering reference blueprint for giving application teams secure, repeatable paved roads instead of fragmented infrastructure tickets and bespoke deployment pipelines.**
 
----
-
-<div align="center">
-
-# 🚀 Enterprise Internal Developer Platform
-### A Production-Oriented Platform Engineering Reference Implementation
-
-**Self-service infrastructure • Golden paths • GitOps • Policy-as-Code • Supply-chain security • SRE**
-
-[![AWS](https://img.shields.io/badge/Cloud-AWS-FF9900?logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
-[![EKS](https://img.shields.io/badge/Runtime-EKS-FF9900?logo=amazoneks&logoColor=white)](https://aws.amazon.com/eks/)
-[![Terraform](https://img.shields.io/badge/IaC-Terraform-7B42BC?logo=terraform)](https://developer.hashicorp.com/terraform)
-[![GitOps](https://img.shields.io/badge/GitOps-Argo%20CD-EF7B4D?logo=argo)](https://argo-cd.readthedocs.io/)
-[![Backstage](https://img.shields.io/badge/Portal-Backstage-9BF0E1?logo=backstage&logoColor=black)](https://backstage.io/)
-
-*An opinionated blueprint for a secure, observable and scalable internal developer platform on AWS.*
+[Architecture](#-platform-architecture) · [Golden path](#-developer-golden-path) · [Getting started](#-getting-started) · [Delivery status](docs/DELIVERY-STATUS.md)
 
 </div>
 
----
+> [!NOTE]
+> This repository is built incrementally. The diagrams describe the target platform; delivery evidence is tracked in [Delivery Status](docs/DELIVERY-STATUS.md). Terraform AWS foundation, EKS, Backstage and Argo CD are not represented as deployed unless that status file records evidence.
 
-## Why this platform?
+## Why an internal developer platform?
 
-Engineering teams lose time navigating infrastructure tickets, inconsistent templates, fragmented deployment workflows and late security checks. This project demonstrates how a Platform Engineering team can provide **paved roads**: secure, repeatable self-service workflows that let application teams focus on delivery.
+As engineering organizations scale, teams repeatedly solve the same problems: provisioning environments, creating repositories, configuring CI, securing secrets, deploying workloads and understanding service health. An IDP packages approved patterns into self-service workflows while retaining platform-level controls.
 
-This is an engineering reference implementation built incrementally. Diagrams describe the target design; implementation evidence is tracked in [Delivery Status](docs/DELIVERY-STATUS.md).
+## Platform architecture
 
-## Platform capabilities
+<p align="center">
+  <img src="docs/architecture/enterprise-idp-architecture.svg" alt="Enterprise internal developer platform architecture" width="100%"/>
+</p>
 
-| Capability | Target technology | Outcome |
+The platform is organized into four planes:
+
+| Plane | Responsibility | Target components |
 |---|---|---|
-| Cloud foundation | AWS VPC, EKS, IAM, KMS, ECR | Isolated, identity-driven runtime |
-| Infrastructure as Code | Terraform modules and remote state | Repeatable, reviewed provisioning |
-| Developer experience | Backstage | Service catalogue and self-service |
-| Workload delivery | Argo CD, Helm, GitOps | Declarative, auditable deployment |
-| Workload policy | Kyverno | Admission-time guardrails |
-| Supply-chain security | Trivy, SBOM, image signing design | Traceable artifacts |
-| Secrets | AWS Secrets Manager, External Secrets | No secrets in Git |
-| Observability | Prometheus, Grafana, Loki, OpenTelemetry | SLI/SLO and incident context |
-| CI identity | GitHub Actions + AWS OIDC | Short-lived cloud identity |
+| Experience | Developer entry point and service catalogue | Backstage, templates, documentation |
+| Control | Provisioning, policy and deployment orchestration | Terraform, GitHub Actions, Argo CD, Kyverno |
+| Runtime | Workload scheduling and service execution | AWS VPC, EKS, Kubernetes, ECR |
+| Trust & operations | Identity, secrets, telemetry and recovery | IAM/OIDC, Secrets Manager, Prometheus, Grafana, Loki, OpenTelemetry |
 
-## Architecture
+## Developer golden path
 
-### Executive architecture
+<p align="center">
+  <img src="docs/architecture/developer-golden-path.svg" alt="Developer golden path from service template to governed GitOps deployment" width="100%"/>
+</p>
 
-![Enterprise IDP architecture](docs/architecture/enterprise-idp-architecture.svg)
-
-The design has four logical planes: **Experience** (Backstage and golden paths), **Control** (CI, Terraform, GitOps and policies), **Runtime** (EKS workloads) and **Trust & Operations** (identity, secrets, telemetry and audit).
-
-### Developer golden path
-
-![Developer golden path](docs/architecture/developer-golden-path.svg)
-
-A developer starts from a reviewed service template, receives a repository scaffold, passes quality and security gates, and deploys through GitOps. Production access is governed by policy and operational readiness—not manual bypasses.
-
-## Repository map
-
-```text
-.
-├── .github/workflows/       # CI and repository automation
-├── docs/
-│   ├── architecture/        # Architecture diagrams
-│   ├── adr/                 # Architecture decisions
-│   ├── operations/          # SLO, incident and DR runbooks
-│   ├── security/            # Threat model and controls
-│   └── platform/            # Golden paths and operating model
-├── infrastructure/terraform/# AWS foundation (next implementation milestone)
-├── platform/                # Backstage, GitOps and policies
-├── services/                # Sample workload
-└── scripts/                 # Local validation helpers
+```mermaid
+flowchart LR
+  Dev[Developer] --> Portal[Service catalogue]
+  Portal --> Template[Reviewed golden-path template]
+  Template --> Repo[New service repository]
+  Repo --> CI[Build + test + security checks]
+  CI --> Image[Versioned container artifact]
+  Image --> GitOps[GitOps deployment change]
+  GitOps --> Policy[Admission and policy controls]
+  Policy --> Runtime[EKS workload]
+  Runtime --> Observe[Telemetry + SLOs]
 ```
 
-## Security principles
+The goal is self-service with guardrails: teams can move quickly inside supported patterns, while exceptions remain visible and reviewable.
 
-- **Identity first:** GitHub Actions authenticates through OIDC with tightly scoped IAM trust.
-- **Private by default:** EKS worker nodes and data-plane components use private subnets; expose only required entry points.
-- **Least privilege:** Separate provisioning, deployment and workload identities.
-- **No plaintext secrets:** Retrieve runtime secrets from AWS Secrets Manager.
-- **Policy before production:** Enforce non-root containers, resource limits, approved registries and restricted privileges.
-- **Traceable artifacts:** Generate SBOMs, scan images and preserve provenance.
-- **Auditable changes:** Infrastructure and production changes flow through version control and review.
+## Capability map
 
-See [Threat Model](docs/security/threat-model.md) and [Security Controls](docs/security/controls.md).
+| Capability | Intended implementation | Engineering outcome |
+|---|---|---|
+| Cloud foundation | AWS VPC, EKS, IAM, KMS, ECR | Isolated workload runtime |
+| Infrastructure as Code | Terraform modules and remote state | Repeatable provisioning |
+| Developer experience | Backstage catalogue and templates | Discoverable self-service |
+| Delivery | GitHub Actions and Argo CD | Auditable CI and GitOps |
+| Policy | Kyverno | Admission-time controls |
+| Supply chain | Trivy, SBOM and signing patterns | Artifact traceability |
+| Secrets | AWS Secrets Manager and External Secrets | No plaintext secrets in Git |
+| Observability | Prometheus, Grafana, Loki, OpenTelemetry | Service health and SLO context |
 
 ## Getting started
 
 ### Prerequisites
 
-Git, Terraform, AWS CLI v2, Docker or a compatible OCI builder, kubectl and Helm. Cloud deployment requires an AWS account and authorization to create resources.
+Git, Terraform, AWS CLI v2, Docker or an OCI-compatible builder, kubectl and Helm. AWS deployment additionally requires an account, an approved identity and permissions for the resources being created.
+
+Clone and run the repository validation helper:
 
 ```bash
 git clone https://github.com/haqueamir70-coder/enterprise-internal-developer-platform.git
@@ -104,55 +86,72 @@ cd enterprise-internal-developer-platform
 bash scripts/validate-repo.sh
 ```
 
-Review [Terraform deployment guide](infrastructure/terraform/README.md) before provisioning. Do not run `terraform apply` until account, region, network overlap, IAM, state storage, exposure and cost have been reviewed.
+Before provisioning, read the [Terraform deployment guide](infrastructure/terraform/README.md). Verify AWS account, region, CIDR overlap, IAM trust, remote-state design, public exposure and estimated cost before any apply.
+
+## Security principles
+
+- **Identity first:** use GitHub OIDC with tightly scoped IAM trust.
+- **Private by default:** keep worker nodes and data-plane components in private subnets; expose only reviewed entry points.
+- **Separate identities:** provisioning, deployment and runtime workloads must not share broad permissions.
+- **No plaintext secrets:** retrieve runtime secrets from an approved secret store.
+- **Policy before production:** enforce non-root execution, resource limits, approved registries and restricted privileges.
+- **Traceable artifacts:** scan, inventory and sign build outputs where implemented.
+- **Auditable changes:** route infrastructure and production changes through version control and review.
+
+See [threat model](docs/security/threat-model.md) and [security controls](docs/security/controls.md).
 
 ## Operating model
 
-A platform is not production-ready merely because a cluster is running. Each golden path needs a documented owner, health/latency/traffic/saturation signals, service-level objective, alert policy, rollback instructions, security evidence and recovery expectations.
+A platform is not production-ready just because a cluster is running. Each golden path needs a named owner, service health signals, an SLO, actionable alerts, rollback instructions, security evidence and recovery expectations.
 
 - [SLO framework](docs/operations/slo-framework.md)
-- [Incident runbook](docs/operations/incident-response.md)
+- [Incident response](docs/operations/incident-response.md)
 - [Disaster recovery](docs/operations/disaster-recovery.md)
 - [Senior engineering scenarios](docs/platform/senior-engineering-scenarios.md)
 
 ## Delivery roadmap
 
-| Milestone | Scope | Status |
+| Milestone | Scope | Current state |
 |---|---|---|
 | M0 | Architecture, repository standards, threat model | Foundation created |
 | M1 | Terraform AWS network and EKS foundation | Planned |
 | M2 | Sample workload, hardened image and CI security | Planned |
 | M3 | Argo CD GitOps and policy enforcement | Planned |
-| M4 | Backstage catalogue and golden path template | Planned |
+| M4 | Backstage catalogue and golden-path template | Planned |
 | M5 | Secrets integration, observability and SLO dashboards | Planned |
 | M6 | Resilience tests, DR exercise and evidence | Planned |
 
-See [Delivery Status](docs/DELIVERY-STATUS.md). A green documentation check is not evidence of an AWS deployment.
+See [Delivery Status](docs/DELIVERY-STATUS.md) for the authoritative implementation record.
 
-## Senior engineering discussion topics
+## Repository map
 
-Multi-account AWS strategy, private EKS design, Terraform state and drift, developer experience metrics, GitOps reconciliation, supply-chain security, identity federation, admission control, SLOs, capacity planning and disaster recovery.
+```text
+.github/workflows/        CI and repository automation
+docs/architecture/        Architecture diagrams
+docs/adr/                 Architecture decision records
+docs/operations/           SLO, incident and DR runbooks
+docs/security/             Threat model and controls
+docs/platform/             Golden paths and operating model
+infrastructure/terraform/  AWS foundation (planned milestone)
+platform/                  Backstage, GitOps and policies
+services/                  Sample workload
+scripts/                   Local validation helpers
+```
 
 ## Cloud portability
 
-The primary implementation target is **AWS EKS**. Azure equivalents are documented separately; Azure service names and icons are intentionally not mixed into the AWS deployment architecture. See [AWS–Azure mapping](docs/platform/aws-azure-service-mapping.md).
+The primary target is **AWS EKS**. Azure equivalents are documented separately in [AWS–Azure service mapping](docs/platform/aws-azure-service-mapping.md); service names and icons are not mixed into the AWS deployment design.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Never commit credentials, state files, customer data or generated secrets.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Never commit credentials, Terraform state, customer data or generated secrets.
 
 ## License
 
 MIT — see [LICENSE](LICENSE).
 
-<div align="center">
+## Maintainer
 
-**A practical Platform Engineering portfolio project.**  
-Target architecture is clearly distinguished from deployed and tested evidence.
+**MD Amirul Haque** · [GitHub](https://github.com/haqueamir70-coder) · [LinkedIn](https://www.linkedin.com/in/md-amirul-haque/)
 
-</div>
-
-
-## Architecture and interview preparation
-
-See the [architecture diagram and interview questions](docs/README.md) for the repository-specific design walkthrough and technical interview guide.
+<sub>Make the secure path the easiest path for developers.</sub>
